@@ -4,51 +4,6 @@
   flex: 1;
 }
 
-.logo-wrapper {
-  position: relative;
-  display: inline-block;
-  padding: 10px;
-  border-radius: 50%;
-  overflow: hidden;
-  height: 150px;
-}
-
-.logo-wrapper::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    45deg,
-    #ff00ff,
-    #ff1493,
-    #ff69b4,
-    #ff00ff,
-    #800080,
-    #8a2be2,
-    #da70d6,
-    #ff1493
-  );
-  background-size: 300% 300%;
-  animation: moveBackground 6s infinite linear;
-  z-index: -1;
-  filter: blur(20px);
-}
-
-@keyframes moveBackground {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 .gender-page {
   display: flex;
   flex-direction: column;

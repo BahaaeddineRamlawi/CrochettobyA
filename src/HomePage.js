@@ -46,11 +46,7 @@ function Homepage() {
           <div className="logo-container">
             <a href="/">
               <div className="logo-wrapper">
-                <img
-                  src={logo}
-                  alt="Crochetto by A Logo"
-                  className="logo-home"
-                />
+                <img src={logo} alt="CrochettobyA Logo" className="logo-home" />
               </div>
             </a>
             <h1 className="title">Crochetto by A</h1>
@@ -64,10 +60,7 @@ function Homepage() {
                 groupedItems[cat] && (
                   <div key={cat}>
                     <h2 className="category-title">
-                      {cat}{" "}
-                      {cat === "Key Chains"
-                        ? "(price per piece)"
-                        : ""}
+                      {cat} {cat === "Key Chains" ? "(price per piece)" : ""}
                     </h2>
                     <div className="category-row">
                       {groupedItems[cat].map((item) => (

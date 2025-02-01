@@ -9,76 +9,47 @@ import "./style/SearchResults.css";
 
 const SearchResults = () => {
   const location = useLocation();
-  const [shoes, setShoes] = useState([]);
+  const [items, setItems] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [displayedQuery, setDisplayedQuery] = useState("");
   const queryParam = new URLSearchParams(location.search).get("q") || "";
 
-  const fetchShoes = async () => {
+  const fetchitems = async () => {
     setIsLoading(true);
-    const shoesCollection = collection(db, "shoes");
-    const shoesSnapshot = await getDocs(shoesCollection);
-    const shoesList = shoesSnapshot.docs.map((doc) => ({
+    const itemsCollection = collection(db, "items");
+    const itemsSnapshot = await getDocs(itemsCollection);
+    const itemsList = itemsSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    setShoes(shoesList);
+    setItems(itemsList);
     setIsLoading(false);
   };
 
   useEffect(() => {
-    fetchShoes();
+    fetchitems();
   }, []);
 
   useEffect(() => {
-    if (shoes.length > 0) {
+    if (items.length > 0) {
       const normalizedQuery = queryParam
         .trim()
         .replace(/\s+/g, " ")
         .toLowerCase();
-      let results = shoes;
+      let results = items;
       let updatedQuery = normalizedQuery;
 
-      if (["men", "man"].includes(normalizedQuery)) {
-        results = shoes.filter((shoe) => shoe.gender.toLowerCase() === "men");
-      } else if (["women", "woman"].includes(normalizedQuery)) {
-        results = shoes.filter((shoe) => shoe.gender.toLowerCase() === "women");
-      } else if (
-        ["kids", "kid", "child", "children"].includes(normalizedQuery)
-      ) {
-        results = shoes.filter(
-          (shoe) =>
-            shoe.gender.toLowerCase() === "boys" ||
-            shoe.gender.toLowerCase() === "girls" ||
-            shoe.gender.toLowerCase() === "boys & girls"
-        );
-      } else {
-        results = shoes.filter(
-          (shoe) =>
-            shoe.caption.toLowerCase().includes(normalizedQuery) ||
-            shoe.description.toLowerCase().includes(normalizedQuery) ||
-            shoe.category.toLowerCase().includes(normalizedQuery) ||
-            shoe.gender.toLowerCase().includes(normalizedQuery)
-        );
-      }
-
-      results.sort((a, b) => {
-        const genderOrder = ["Men", "Women", "Boys", "Girls", "Boys & Girls"];
-        const genderA = genderOrder.indexOf(a.gender);
-        const genderB = genderOrder.indexOf(b.gender);
-
-        if (genderA === genderB) {
-          return b.timestamp - a.timestamp;
-        }
-
-        return genderA - genderB;
-      });
+      results = items.filter(
+        (item) =>
+          item.caption.toLowerCase().includes(normalizedQuery) ||
+          item.category.toLowerCase().includes(normalizedQuery)
+      );
 
       setFilteredResults(results);
       setDisplayedQuery(updatedQuery);
     }
-  }, [queryParam, shoes]);
+  }, [queryParam, items]);
 
   if (isLoading) {
     return (
@@ -87,7 +58,9 @@ const SearchResults = () => {
         <header className="header">
           <div className="logo-container">
             <a href="/">
-              <img src={logo} alt="Darazi Shoes Logo" className="logo" />
+              <div className="logo-wrapper-noanimation">
+                <img src={logo} alt="CrochettobyA Logo" className="logo" />
+              </div>
             </a>
           </div>
         </header>
@@ -106,7 +79,9 @@ const SearchResults = () => {
         <header className="header">
           <div className="logo-container">
             <a href="/">
-              <img src={logo} alt="Darazi Shoes Logo" className="logo" />
+              <div className="logo-wrapper-noanimation">
+                <img src={logo} alt="CrochettobyA Logo" className="logo" />
+              </div>
             </a>
           </div>
         </header>
@@ -124,7 +99,9 @@ const SearchResults = () => {
       <header className="header">
         <div className="logo-container">
           <a href="/">
-            <img src={logo} alt="Darazi Shoes Logo" className="logo" />
+            <div className="logo-wrapper-noanimation">
+              <img src={logo} alt="CrochettobyA Logo" className="logo" />
+            </div>
           </a>
         </div>
       </header>
@@ -134,12 +111,11 @@ const SearchResults = () => {
         </h2>
         <div className="results-container">
           {filteredResults.map((result) => (
-            <div key={result.id} className="shoe-card">
+            <div key={result.id} className="item-card">
               <img src={result.link} alt={result.caption} />
               <h3>{result.caption}</h3>
               <p>{result.category}</p>
-              <p>{result.description}</p>
-              <p id="genderp">{result.gender}</p>
+              <p>${result.price}</p>
             </div>
           ))}
         </div>

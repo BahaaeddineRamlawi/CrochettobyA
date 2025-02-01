@@ -53,7 +53,8 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
-  background-image: linear-gradient(#000000cd, #000000cd), url("../assets/images/background.png");
+  background-image: linear-gradient(#000000cd, #000000cd),
+    url("../assets/images/background.png");
   overflow: hidden;
 }
 
@@ -113,6 +114,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin-bottom: 25px;
+  justify-content: center;
 }
 
 .logo-container h1 {
@@ -123,9 +125,8 @@ body {
 }
 
 .logo {
-  width: 130px;
-  height: auto;
-  filter: saturate(150%);
+  width: 150px;
+  aspect-ratio: 1;
   color: var(--main-color);
 }
 
@@ -137,10 +138,62 @@ body {
   animation: fadeIn 1s ease-in-out forwards;
 }
 
-.logo-gender {
+.logo-wrapper,.logo-wrapper-noanimation {
   position: relative;
-  width: 90px;
-  margin: 5px 10px 0 10px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  height: 150px;
+}
+
+.logo-wrapper::before,.logo-wrapper-noanimation::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    #ff00ff,
+    #ff1493,
+    #ff69b4,
+    #ff00ff,
+    #800080,
+    #8a2be2,
+    #da70d6,
+    #ff1493
+  );
+  background-size: 300% 300%;
+  animation: moveBackground 6s infinite linear;
+  z-index: -1;
+  filter: blur(20px);
+}
+
+.logo-wrapper {
+  animation: expandPadding 1s ease-out forwards; 
+}
+
+@keyframes expandPadding {
+  0% {
+    padding: 0px;
+  }
+  100% {
+    padding: 10px;
+  }
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes fadeIn {
