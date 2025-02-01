@@ -1,0 +1,24 @@
+.result-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 30px;
+  font-family: "Philosopher", serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  flex: 1;
+}
+
+.results-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#genderp{
+  margin: 5px;
+}

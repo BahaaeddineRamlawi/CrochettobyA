@@ -1,0 +1,61 @@
+{
+  "name": "darazishoesapp",
+  "version": "0.1.0",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "@craco/craco": "^7.1.0",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "axios": "^1.7.9",
+    "bcryptjs": "^2.4.3",
+    "buffer": "^6.0.3",
+    "cra-template": "1.2.0",
+    "crypto-browserify": "^3.12.1",
+    "darazishoesapp": "file:",
+    "express": "^4.21.2",
+    "firebase": "^11.1.0",
+    "quagga": "^0.12.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.1.1",
+    "react-scripts": "^5.0.1",
+    "react-webcam": "^7.2.0",
+    "stream-browserify": "^3.0.0",
+    "vm-browserify": "^1.1.2",
+    "web-vitals": "^4.2.4"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
