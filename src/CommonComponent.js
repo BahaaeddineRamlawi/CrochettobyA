@@ -1,5 +1,5 @@
 export const category = [
-  "Key Chains",
+  "Keychains",
   "Stuffed Animals",
   "Valentine",
   "Christmas",

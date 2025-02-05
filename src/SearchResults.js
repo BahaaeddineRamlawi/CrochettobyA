@@ -15,7 +15,7 @@ const SearchResults = () => {
   const [displayedQuery, setDisplayedQuery] = useState("");
   const queryParam = new URLSearchParams(location.search).get("q") || "";
 
-  const fetchitems = async () => {
+  const fetchItems = async () => {
     setIsLoading(true);
     const itemsCollection = collection(db, "items");
     const itemsSnapshot = await getDocs(itemsCollection);
@@ -28,7 +28,7 @@ const SearchResults = () => {
   };
 
   useEffect(() => {
-    fetchitems();
+    fetchItems();
   }, []);
 
   useEffect(() => {
@@ -43,7 +43,9 @@ const SearchResults = () => {
       results = items.filter(
         (item) =>
           item.caption.toLowerCase().includes(normalizedQuery) ||
-          item.category.toLowerCase().includes(normalizedQuery)
+          item.category.some((cat) =>
+            cat.toLowerCase().includes(normalizedQuery)
+          )
       );
 
       setFilteredResults(results);
@@ -114,7 +116,11 @@ const SearchResults = () => {
             <div key={result.id} className="item-card">
               <img src={result.link} alt={result.caption} />
               <h3>{result.caption}</h3>
-              <p>{result.category}</p>
+              <p>
+                {Array.isArray(result.category)
+                  ? result.category.join(", ")
+                  : result.category}
+              </p>
               <p>${result.price}</p>
             </div>
           ))}

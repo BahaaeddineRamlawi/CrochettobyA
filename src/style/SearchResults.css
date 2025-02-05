@@ -9,11 +9,14 @@
   flex: 1;
 }
 
+.result-page h2 {
+  font-size: 28px;
+}
+
 .results-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
   text-align: center;
 }

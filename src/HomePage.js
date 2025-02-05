@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import logo from "./assets/images/logo.png";
 import SearchBar from "./SearchBar";
@@ -14,11 +14,13 @@ function Homepage() {
     const fetchData = async () => {
       try {
         const itemsCollection = collection(db, "items");
-        const itemsSnapshot = await getDocs(itemsCollection);
+        const q = query(itemsCollection, orderBy("timestamp", "desc"));
+        const itemsSnapshot = await getDocs(q);
 
         const fetchedItems = itemsSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
+          timestamp: doc.data().timestamp?.toDate(),
         }));
 
         setItems(fetchedItems);
@@ -30,13 +32,18 @@ function Homepage() {
     fetchData();
   }, []);
 
-  const groupedItems = items.reduce((acc, item) => {
-    if (!acc[item.category]) {
-      acc[item.category] = [];
+  const groupedItems = {};
+
+  items.forEach((item) => {
+    if (Array.isArray(item.category)) {
+      item.category.forEach((cat) => {
+        if (!groupedItems[cat]) {
+          groupedItems[cat] = [];
+        }
+        groupedItems[cat].push(item);
+      });
     }
-    acc[item.category].push(item);
-    return acc;
-  }, {});
+  });
 
   return (
     <div className="home-page">
@@ -55,32 +62,30 @@ function Homepage() {
 
         <main className="homepage-main">
           <div className="categoriespics">
-            {category.map(
-              (cat) =>
-                groupedItems[cat] && (
-                  <div key={cat}>
-                    <h2 className="category-title">
-                      {cat} {cat === "Key Chains" ? "(price per piece)" : ""}
-                    </h2>
-                    <div className="category-row">
-                      {groupedItems[cat].map((item) => (
-                        <div key={item.id} className="item-card">
-                          <img
-                            src={item.link}
-                            alt={item.caption}
-                            title={item.caption}
-                            className="category-image"
-                          />
-                          <div className="item-info">
-                            <h3>{item.caption}</h3>
-                            <p>{item.category}</p>
-                            <p>${item.price}</p>
-                          </div>
+            {category.map((cat) =>
+              groupedItems[cat]?.length > 0 ? (
+                <div key={cat}>
+                  <h2 className="category-title">
+                    {cat} {cat === "Key Chains" ? "(price per piece)" : ""}
+                  </h2>
+                  <div className="category-row">
+                    {groupedItems[cat].map((item) => (
+                      <div key={item.id} className="item-card">
+                        <img
+                          src={item.link}
+                          alt={item.caption}
+                          title={item.caption}
+                          className="category-image"
+                        />
+                        <div className="item-info">
+                          <h3>{item.caption}</h3>
+                          <p>${item.price}</p>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
-                )
+                </div>
+              ) : null
             )}
           </div>
         </main>

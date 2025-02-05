@@ -55,13 +55,12 @@ body {
   transition: transform 0.3s;
   background-image: linear-gradient(#000000cd, #000000cd),
     url("../assets/images/background.png");
-  overflow: hidden;
 }
 
 .item-card img {
   align-items: center;
   aspect-ratio: 1/1;
-  background-image: #00000083;
+  background-color: #00000083;
   color: var(--main-color);
   display: flex;
   justify-content: center;
@@ -75,7 +74,7 @@ body {
 .item-card h3 {
   font-size: 29px;
   margin: 0;
-  padding: 0 1px;
+  padding: 4px 0 2px 0;
   word-wrap: break-word;
   line-height: 35px;
   border-top: solid var(--main-color) 1px;
@@ -105,6 +104,7 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin: 0 5px;
 }
 
 .logo-container {
