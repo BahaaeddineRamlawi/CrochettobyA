@@ -18,8 +18,7 @@ const AddData = ({ item, setItem, onAddComplete }) => {
   const [, setImageUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [itemsByCategory, setItemsByCategory] = useState({});
-  
-  // Function to fetch and update items
+
   const fetchItems = async () => {
     const itemsCollection = collection(db, "items");
     const snapshot = await getDocs(itemsCollection);
@@ -39,12 +38,12 @@ const AddData = ({ item, setItem, onAddComplete }) => {
       });
     });
 
-    setItemsByCategory(groupedItems); // Update the state with new items
+    setItemsByCategory(groupedItems);
   };
 
   useEffect(() => {
-    fetchItems(); // Load items on initial render
-  }, []); // Only run once on mount
+    fetchItems();
+  }, []);
 
   const inputRefs = {
     caption: React.createRef(),
@@ -151,8 +150,7 @@ const AddData = ({ item, setItem, onAddComplete }) => {
         onAddComplete();
       }
 
-      // Reload the items after adding a new one
-      fetchItems(); // Refresh items after adding
+      fetchItems();
     } catch (error) {
       console.error("Error adding item:", error);
     } finally {
@@ -176,8 +174,7 @@ const AddData = ({ item, setItem, onAddComplete }) => {
         await deleteDoc(doc(db, "items", id));
         alert("Item deleted successfully!");
 
-        // Reload the items after deleting one
-        fetchItems(); // Refresh items after delete
+        fetchItems();
       } catch (error) {
         console.error("Error deleting document:", error);
         alert("Failed to delete item.");
