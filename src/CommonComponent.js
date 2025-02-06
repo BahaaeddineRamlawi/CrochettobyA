@@ -15,6 +15,3 @@ export const API_KEYS = [
   "63c72d8c65d5d2270e0b40df618f5ffd",
   "bd3954b7ec6bc0e86a98fe08a8b75151",
 ];
-
-export const PASSWORD =
-  "$6$fwefhgwuwf874d84d5d4s84614s86d4dwa3sdarazishoesadmin$dhwqhdiuqdqw95dd4qwd";
