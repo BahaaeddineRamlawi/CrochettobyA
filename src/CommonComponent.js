@@ -5,6 +5,7 @@ export const category = [
   "Christmas",
   "Flowers",
   "Wall Hangers",
+  "Other Stuff",
 ];
 
 export const API_KEYS = [
